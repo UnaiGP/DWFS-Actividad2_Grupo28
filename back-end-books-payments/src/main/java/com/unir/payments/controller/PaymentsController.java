@@ -72,9 +72,9 @@ public class PaymentsController {
         // Llama al servicio para eliminar el pago por ID
         boolean deleted = service.deletePayment(id);
 
-        // Si se eliminó correctamente, devuelve HTTP 204 (que no hay contenido)
+        // Si se eliminó correctamente, devuelve HTTP 200 (OK)
         if (deleted) {
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.ok().build();
         } else {
             // Si no se pudo eliminar, devuelve HTTP 400 bad Request)
             return ResponseEntity.badRequest().build();
