@@ -14,9 +14,6 @@ import java.util.List;
 @NoArgsConstructor
 public class PaymentRequest {
 
-	@NotNull(message = "`paymentId` cannot be null")
-	private Long paymentId;
-
 	@NotNull(message = "`amount` cannot be null")
 	private Double amount;
 

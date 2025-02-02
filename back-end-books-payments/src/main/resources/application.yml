@@ -29,5 +29,5 @@ spring:
         web-allow-others: true
 
 ## Configuracion secundaria (custom)
-getProduct:
+getBook:
   url: http://ms-books-catalogue/products/%s
