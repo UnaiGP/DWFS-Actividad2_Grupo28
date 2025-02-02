@@ -28,6 +28,14 @@ public class PaymentsServiceImpl implements PaymentsService {
             .filter(Objects::nonNull)
             .toList();
 
+    // Verificamos si el stock está disponible para todos los libros
+    for (Book book : books) {
+      if (!booksFacade.checkStock(book.getId())) {
+        return null;  // Si no hay stock de algún libro, no se crea el pago
+      }
+    }
+
+
     if (books.size() != request.getBooks().size() ||
             books.stream().anyMatch(book -> !book.getVisible())) {
       return null;  // Si algún producto no es válido, no se crea el pago

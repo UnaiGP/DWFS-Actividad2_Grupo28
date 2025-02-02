@@ -17,6 +17,9 @@ public class BooksFacade {
   @Value("http://ms-books-catalogue/products/%s")
   private String getBookUrl;
 
+  @Value("http://ms-books-catalogue/products/%s/stock")
+  private String checkStockUrl;
+
   private final RestTemplate restTemplate;
 
   public Book getBook(Long id) {
@@ -37,5 +40,17 @@ public class BooksFacade {
           return null;
         }
   }
+
+    public boolean checkStock(Long id) {
+        try {
+            String url = String.format(checkStockUrl, id);
+            log.info("Checking stock for book with ID {}. Request to {}", id, url);
+            Integer stock = restTemplate.getForObject(url, Integer.class);
+            return stock != null && stock > 0;  // verifcando si hay stock disponibl
+        } catch (Exception e) {
+            log.error("Error checking stock for book with ID {}: {}", id, e.getMessage());
+            return false;
+        }
+    }
 
 }
