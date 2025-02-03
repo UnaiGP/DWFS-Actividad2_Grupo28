@@ -16,4 +16,5 @@ public class LibroDto {
 	private Double valoracion;
 	private String autor;
 	private String categoria;
+	private Integer	stock;
 }

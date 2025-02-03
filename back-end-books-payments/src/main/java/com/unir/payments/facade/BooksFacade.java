@@ -9,16 +9,15 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Map;
+
 @Component
 @RequiredArgsConstructor
 @Slf4j
 public class BooksFacade {
 
-  @Value("http://ms-books-catalogue/products/%s")
+  @Value("http://ms-books-catalogue/libros/%s")
   private String getBookUrl;
-
-  @Value("http://ms-books-catalogue/products/%s/stock")
-  private String checkStockUrl;
 
   private final RestTemplate restTemplate;
 
@@ -43,12 +42,18 @@ public class BooksFacade {
 
     public boolean checkStock(Long id) {
         try {
-            String url = String.format(checkStockUrl, id);
+            String url = String.format(getBookUrl, id);
             log.info("Checking stock for book with ID {}. Request to {}", id, url);
-            Integer stock = restTemplate.getForObject(url, Integer.class);
-            return stock != null && stock > 0;  // verifcando si hay stock disponibl
+            // Fetch response as a Map to handle JSON format
+            Map<String, Object> response = restTemplate.getForObject(url, Map.class);
+            if (response != null && response.containsKey("stock")) {
+                Integer stock = (Integer) response.get("stock");
+                log.info("Stock: " + stock.toString() + ". Para el libro: " + id);
+                return stock != null && stock > 0;
+            }
+            return false;
         } catch (Exception e) {
-            log.error("Error checking stock for book with ID {}: {}", id, e.getMessage());
+            log.error("Error checking stock for book ID {}: {}", id, e.getMessage());
             return false;
         }
     }

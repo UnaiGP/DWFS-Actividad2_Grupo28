@@ -4,6 +4,7 @@ import com.unir.payments.data.PaymentJpaRepository;
 import com.unir.payments.data.model.Payment;
 import com.unir.payments.facade.model.Book;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;  // Lombok Logger
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.stream.Collectors;
 import com.unir.payments.facade.BooksFacade;
 import com.unir.payments.controller.model.PaymentRequest;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor  //mejor inyeccion por constructor mas por temas de testing
 public class PaymentsServiceImpl implements PaymentsService {
@@ -45,6 +47,7 @@ public class PaymentsServiceImpl implements PaymentsService {
               .builder()
               .books(books.stream().map(Book::getId).collect(Collectors.toList()))
               .build();
+      log.info(payment.toString());
       repository.save(payment);
       return payment;
     }
