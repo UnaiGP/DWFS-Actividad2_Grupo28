@@ -10,4 +10,5 @@ public class Consts {
     public static final String CATEGORIA = "categoria";
     public static final String VALORACION = "valoracion";
     public static final String STOCK = "stock";
+    public static final String PRECIO = "precio";
 }

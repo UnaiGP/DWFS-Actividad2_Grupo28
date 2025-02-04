@@ -43,10 +43,11 @@ public class LibrosController {
             @RequestParam(required = false) String categoria,
             @RequestParam(required = false) Boolean visible,
             @RequestParam(required = false) Double valoracion,
-            @RequestParam(required = false) Integer stock
+            @RequestParam(required = false) Integer stock,
+            @RequestParam(required = false) Double precio
     ) {
         // Lógica para filtrar libros
-        List<Libro> libros = service.getLibros(titulo, isbn, autor, categoria, visible, valoracion, stock);
+        List<Libro> libros = service.getLibros(titulo, isbn, autor, categoria, visible, valoracion, stock, precio);
 
         if (!libros.isEmpty()) {
             return ResponseEntity.ok(libros);

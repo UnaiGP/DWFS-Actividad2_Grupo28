@@ -18,4 +18,5 @@ public class CreateLibroRequest {
 	private Boolean visible;
 	private Double valoracion;
 	private Integer	stock;
+	private Double precio;
 }

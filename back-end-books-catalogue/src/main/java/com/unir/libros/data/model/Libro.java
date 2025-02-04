@@ -58,6 +58,9 @@ public class Libro {
 	@Max(5)  // Validación: máximo 5
 	private Double valoracion;
 
+	@Column(name = Consts.PRECIO)
+	private Double precio;
+
 	public void update(LibroDto libroDto) {
 		this.titulo = libroDto.getTitulo();
 		this.isbn = libroDto.getIsbn();
@@ -66,5 +69,6 @@ public class Libro {
 		this.categoria = libroDto.getCategoria();
 		this.valoracion = libroDto.getValoracion();
 		this.stock = libroDto.getStock();
+		this.precio = libroDto.getPrecio();
 	}
 }

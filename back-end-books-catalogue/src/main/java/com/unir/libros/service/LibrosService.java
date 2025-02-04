@@ -8,7 +8,7 @@ import com.unir.libros.data.model.Libro;
 
 public interface LibrosService {
 	
-	List<Libro> getLibros(String titulo, String isbn, String autor, String categoria, Boolean visible, Double valoracion, Integer stock);
+	List<Libro> getLibros(String titulo, String isbn, String autor, String categoria, Boolean visible, Double valoracion, Integer stock, Double precio);
 
 	Libro getLibro(String libroId);
 
