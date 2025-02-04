@@ -20,7 +20,7 @@ public class Book {
 	private String country;
 	private String description;
 	private Boolean visible;
-	private Double price;
+	private Double precio;
 }
 
 //esto es lo que espero recibir, hablando con el equipo para ver qeu sea así o modificarlo
