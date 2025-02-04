@@ -29,11 +29,12 @@ public class LibrosServiceImpl implements LibrosService {
 	private ObjectMapper objectMapper;
 
 	@Override
-	public List<Libro> getLibros(String titulo, String isbn, String autor, String categoria, Boolean visible, Double valoracion) {
+	public List<Libro> getLibros(String titulo, String isbn, String autor, String categoria, Boolean visible, Double valoracion, Integer stock, Double precio) {
 
 		if (StringUtils.hasLength(titulo) || StringUtils.hasLength(isbn) || StringUtils.hasLength(autor)
-				|| StringUtils.hasLength(categoria) || (visible != null) || (valoracion != null)) {
-			return repository.search(titulo, isbn, autor, categoria, visible, valoracion);
+				|| StringUtils.hasLength(categoria) || (visible != null) || (valoracion != null)
+				|| (stock != null) || (precio != null)) {
+			return repository.search(titulo, isbn, autor, categoria, visible, valoracion, stock, precio);
 		}
 
 		List<Libro> libros = repository.getLibros();
@@ -65,7 +66,9 @@ public class LibrosServiceImpl implements LibrosService {
 				StringUtils.hasLength(request.getIsbn().trim()) &&
 				StringUtils.hasLength(request.getCategoria().trim()) &&
 				request.getVisible() != null &&
-				request.getValoracion() != null) {
+				request.getValoracion() != null &&
+				request.getStock() != null &&
+				request.getPrecio() != null) {
 
 			// Si la conversión es exitosa, crear el libro
 			Libro libro = Libro.builder()
@@ -75,6 +78,8 @@ public class LibrosServiceImpl implements LibrosService {
 					.visible(request.getVisible())
 					.categoria(request.getCategoria())
 					.valoracion(request.getValoracion())
+					.stock(request.getStock())
+					.precio(request.getPrecio())
 					.build();
 
 			// Guardar el libro en la base de datos

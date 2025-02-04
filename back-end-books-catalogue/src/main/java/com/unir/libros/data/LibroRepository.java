@@ -33,7 +33,7 @@ public class LibroRepository {
         repository.delete(libro);
     }
 
-    public List<Libro> search(String titulo, String isbn, String autor, String categoria, Boolean visible, Double valoracion) {
+    public List<Libro> search(String titulo, String isbn, String autor, String categoria, Boolean visible, Double valoracion, Integer stock, Double precio) {
         SearchCriteria<Libro> spec = new SearchCriteria<>();
 
         if (StringUtils.isNotBlank(titulo)) {
@@ -58,6 +58,14 @@ public class LibroRepository {
 
         if (valoracion != null) {
             spec.add(new SearchStatement(Consts.VALORACION, valoracion, SearchOperation.EQUAL));
+        }
+
+        if (stock != null) {
+            spec.add(new SearchStatement(Consts.STOCK, stock, SearchOperation.EQUAL));
+        }
+
+        if (precio != null) {
+            spec.add(new SearchStatement(Consts.PRECIO, precio, SearchOperation.EQUAL));
         }
 
         return repository.findAll(spec);

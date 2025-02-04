@@ -42,10 +42,12 @@ public class LibrosController {
             @RequestParam(required = false) String autor,
             @RequestParam(required = false) String categoria,
             @RequestParam(required = false) Boolean visible,
-            @RequestParam(required = false) Double valoracion
+            @RequestParam(required = false) Double valoracion,
+            @RequestParam(required = false) Integer stock,
+            @RequestParam(required = false) Double precio
     ) {
         // Lógica para filtrar libros
-        List<Libro> libros = service.getLibros(titulo, isbn, autor, categoria, visible, valoracion);
+        List<Libro> libros = service.getLibros(titulo, isbn, autor, categoria, visible, valoracion, stock, precio);
 
         if (!libros.isEmpty()) {
             return ResponseEntity.ok(libros);
@@ -67,7 +69,7 @@ public class LibrosController {
             responseCode = "404",
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = Void.class)),
             description = "No se ha encontrado el libro con el identificador indicado.")
-    public ResponseEntity<Libro> getProduct(@PathVariable String libroId) {
+    public ResponseEntity<Libro> getLibros(@PathVariable String libroId) {
 
         log.info("Request received for libro {}", libroId);
         Libro libro = service.getLibro(libroId);
@@ -100,12 +102,12 @@ public class LibrosController {
             responseCode = "404",
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = Void.class)),
             description = "No se ha encontrado el libro con el identificador indicado.")
-    public ResponseEntity<Libro> addProduct(@RequestBody CreateLibroRequest request) {
+    public ResponseEntity<Libro> addLibro(@RequestBody CreateLibroRequest request) {
 
-        Libro createdProduct = service.createLibro(request);
+        Libro createdLibro = service.createLibro(request);
 
-        if (createdProduct != null) {
-            return ResponseEntity.status(HttpStatus.CREATED).body(createdProduct);
+        if (createdLibro != null) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdLibro);
         } else {
             return ResponseEntity.badRequest().build();
         }
@@ -156,7 +158,7 @@ public class LibrosController {
             responseCode = "404",
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = Void.class)),
             description = "Libro no encontrado.")
-    public ResponseEntity<Libro> updateProduct(@PathVariable String libroId, @RequestBody LibroDto body) {
+    public ResponseEntity<Libro> updateLibro(@PathVariable String libroId, @RequestBody LibroDto body) {
 
         Libro updated = service.updateLibro(libroId, body);
         if (updated != null) {

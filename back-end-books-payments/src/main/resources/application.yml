@@ -30,4 +30,4 @@ spring:
 
 ## Configuracion secundaria (custom)
 getBook:
-  url: http://ms-books-catalogue/products/%s
+  url: http://ms-books-catalogue/libros/%s

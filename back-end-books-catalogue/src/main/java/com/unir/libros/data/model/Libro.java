@@ -49,11 +49,17 @@ public class Libro {
 	@Column(name = Consts.CATEGORIA)
 	private String categoria;
 
+	@Column(name = Consts.STOCK)
+	private Integer stock;
+
 	// Valoración de 1 a 5
 	@Column(name = "valoracion", nullable = false)
 	@Min(1)  // Validación: mínimo 1
 	@Max(5)  // Validación: máximo 5
 	private Double valoracion;
+
+	@Column(name = Consts.PRECIO)
+	private Double precio;
 
 	public void update(LibroDto libroDto) {
 		this.titulo = libroDto.getTitulo();
@@ -62,5 +68,7 @@ public class Libro {
 		this.visible = libroDto.getVisible();		
 		this.categoria = libroDto.getCategoria();
 		this.valoracion = libroDto.getValoracion();
+		this.stock = libroDto.getStock();
+		this.precio = libroDto.getPrecio();
 	}
 }
