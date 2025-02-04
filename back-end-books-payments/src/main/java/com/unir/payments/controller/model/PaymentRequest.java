@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 public class PaymentRequest {
 
-	@NotNull(message = "`amount` cannot be null")
+	//@NotNull(message = "`amount` cannot be null") este ahora se calcula en base a los libros
 	private Double amount;
 
 	@NotNull(message = "`paymentMethod` cannot be null")

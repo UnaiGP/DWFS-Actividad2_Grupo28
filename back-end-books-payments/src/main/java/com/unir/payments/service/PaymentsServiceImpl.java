@@ -30,27 +30,38 @@ public class PaymentsServiceImpl implements PaymentsService {
             .filter(Objects::nonNull)
             .toList();
 
-    // Verificamos si el stock está disponible para todos los libros
+    // Verifico si el stock está disponible para todos los libros
     for (Book book : books) {
-      if (!booksFacade.checkStock(book.getId())) {
-        return null;  // Si no hay stock de algún libro, no se crea el pago
-      }
-    }
+          if (!booksFacade.checkStock(book.getId())) {
+            return null;  // Si no hay stock de algún libro, no se crea el pago
+          }
+        }
 
-
+    // Verifico si todos los libros son válidos (tienen stock y visibles)
     if (books.size() != request.getBooks().size() ||
             books.stream().anyMatch(book -> !book.getVisible())) {
       return null;  // Si algún producto no es válido, no se crea el pago
-    } else {
+    }
+
+      // Calcula el total amount de los libros
+    double amount = 0.0;
+
+    // Sumando el precio de los libros, asignando 0 si el precio es null
+    for (Book book : books) {
+      amount += (book.getPrecio() != null) ? book.getPrecio() : 0.0;  // Si el precio es null, sumamos 0
+    }
+
       // Crear el objeto Payment con los libross validados
-      Payment payment = Payment
-              .builder()
+      Payment payment = Payment.builder()
+              .amount(amount)
+              .paymentMethod(request.getPaymentMethod())
+              .status(request.getStatus())
               .books(books.stream().map(Book::getId).collect(Collectors.toList()))
               .build();
+
       log.info(payment.toString());
       repository.save(payment);
       return payment;
-    }
   }
 
   @Override

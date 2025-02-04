@@ -19,8 +19,8 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private Long paymentId;
+   // @Column(nullable = false)
+    //    private Long paymentId;
 
     @Column(nullable = false)
     private Double amount;
