@@ -35,6 +35,10 @@ public class LibrosController {
     @ApiResponse(
             responseCode = "200",
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = Libro.class)))
+    @ApiResponse(
+            responseCode = "204",
+            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Libro.class)),
+            description = "Si no se encuentran libros.")
     public ResponseEntity<List<Libro>> getLibros(
             @RequestHeader Map<String, String> headers,
             @RequestParam(required = false) String titulo,
